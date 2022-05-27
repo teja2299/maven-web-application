@@ -11,11 +11,6 @@
 
         <description>Maven Web Project for Java Project</description>
 
-        <organization>
-                <name>Landmark Technologies</name>
-                <url>http://landmarktechnologies.com/</url>
-        </organization>
-
         <properties>
                 <jdk.version>1.8</jdk.version>
                 <spring.version>5.1.2.RELEASE</spring.version>
@@ -23,7 +18,7 @@
                 <log4j.version>1.2.17</log4j.version>
                 <sonar.host.url>http:3.96.196.171:9000/</sonar.host.url>
                 <sonar.login>admin</sonar.login>
-                <sonar.password>admin</sonar.password>
+                <sonar.password>Teja@130</sonar.password>
                 <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
                 <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
@@ -171,7 +166,7 @@
                      <properties>
                          <!-- Optional URL to server. Default value is http://localhost:9000 -->
                          <sonar.host.url>
-                             http://3.110.207.164:9000
+			     http://13.232.88.70:9000
                          </sonar.host.url>
                      </properties>
                  </profile>
