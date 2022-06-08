@@ -1,0 +1,64 @@
+pipeline {
+ agent any
+ tools {
+  maven 'MAVEN3.8.5'
+ }
+ 
+ triggres {
+  pollSCM('* * * * *')     
+ }
+ 
+ options {
+  buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '3', numToKeepStr: '4'))       
+ }
+ stages {
+  stage('codeCheckin')
+  {
+   steps {
+    git 'https://github.com/teja2299/maven-web-application.git'   
+   }      
+  }
+  stage('mavenBuild')
+  {
+   steps {
+    sh "mvn clean package"   
+   }      
+  }
+  stage('CodeQualityAnalysisBySonar')
+  {
+   steps {
+    sh "mvn sonar:sonar"   
+   }      
+  }
+  stage('DeployToArtifatory')
+  {
+   steps {
+    sh "mvn deploy"
+   }      
+  }
+  stage('DeployToTomcat')
+  {
+   steps {
+    sshagent(['23efba08-0fb3-407b-8b84-2d5c49bb22ff']) {
+     sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@15.206.145.204:/opt/tomcat/apache-tomcat-10.0.21/webapps"
+    }   
+   }
+  }
+ }
+ post {
+  success {
+   emailext body: '''Our Project got success. Its totally effort of our entire team. From now CI/CD starts
+
+Regards,
+G SAI TEJA
+Devops Engineer''', subject: 'Our Project is running SUCCESSFULLY', to: 'tejags2299@gmail.com'      
+  }
+  failure {
+   emailext body: '''The project is failed. we have to create or rectify our errors as soon as possible. Team... Plz be active. Hurry up.
+
+Regards,
+G SAI TEJA
+Devops Engineer''', subject: 'The Project has been FAILED..!', to: 'tejags2299@gmail.com'      
+  }
+ }
+}
