@@ -9,6 +9,8 @@ pipeline {
  }
  
  options {
+  //To ADD the timestamp to the console
+  timestamps()
   buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '3', numToKeepStr: '4'))       
  }
  stages {
