@@ -4,7 +4,7 @@ pipeline {
   maven 'MAVEN3.8.5'
  }
  
- triggres {
+ triggers {
   pollSCM('* * * * *')     
  }
  
